@@ -22,7 +22,7 @@ public class Food extends Sim_Object {
 	
 	public Food(int x, int y, int food, int num){
 		
-		super(x, y, num);
+		super(x, y, num, 1, Color.green); //TODO change radius
 		
 		this.radius = (int) Math.sqrt(food) * 2;
 		this.food = food;

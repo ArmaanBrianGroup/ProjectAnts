@@ -1,5 +1,7 @@
 package simulation;
 
+import java.awt.Color;
+
 import com.sun.xml.internal.bind.v2.TODO;
 
 import neural_network.Network;
@@ -16,7 +18,7 @@ public class Ant extends Sim_Object {
 	public int sight;
 	
 	public Ant(int x, int y, int num) {
-		super(x, y, num);
+		super(x, y, num, 1, Color.red); //TODO change radius
 		
 		
 		int[] layout = new int[]{5, 5, 5};

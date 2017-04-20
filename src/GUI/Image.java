@@ -52,4 +52,14 @@ public class Image {
         g.setColor(c);
         g.fillOval(x, y, r, r);
 	}
+	
+	public void drawRect(int red, int green, int blue, int x, int y, int w, int h) {
+        g.setColor(new Color(red, green, blue));
+        g.fillRect(x, y, w, h);;
+	}
+	
+	public void drawRect(Color c, int x, int y, int w, int h) {
+        g.setColor(c);
+        g.fillRect(x, y, w, h);;
+	}
 }
