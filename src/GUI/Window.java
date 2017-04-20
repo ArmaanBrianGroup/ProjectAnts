@@ -1,27 +1,27 @@
 package GUI;
 
-import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Window extends Canvas{
 
 	private int win_x, win_y;
-	public  int x, y; 
-	private int vel_x = (int) (Math.random() *11) - 1, vel_y = (int) (Math.random() *11) - 1;
+	private Image image;
 	
-	public Window(int win_x, int win_y) {
+	
+	public Window(int win_x, int win_y, Image image) {
 		this.win_x = win_x;
 		this.win_y = win_y;
+		this.image = image;
 	}
 	
-	public void paint(Graphics g) { 
-		g.setColor(Color.black);
-		System.out.println(x + " " + y);
-		g.fillRect(x, y, 100, 100);
-		x += vel_x;
-        y += vel_y;
-        
-        if (x > win_x - 100 || x < 0) vel_x *= -1;
-        if (y > win_y - 100 || y < 0) vel_y *= -1;
-    }  
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawImage(image.getImage(), 0, 0, image.getImage().getWidth(), image.getImage().getHeight(), null);
+	}
+	
+	public void drawImage(Image image) {
+		this.image = image;
+		repaint();
+	}
 }

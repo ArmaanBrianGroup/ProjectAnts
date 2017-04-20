@@ -1,8 +1,10 @@
-package main_package;
+package simulation;
+
+import com.sun.xml.internal.bind.v2.TODO;
 
 import neural_network.Network;
 
-public class Ant {
+public class Ant extends Sim_Object {
 	public Network brain;
 	public int hive;
 	public int lastMove;
@@ -13,8 +15,10 @@ public class Ant {
 	public int speed;
 	public int sight;
 	
-	
-	public Ant() {
+	public Ant(int x, int y, int num) {
+		super(x, y, num);
+		
+		
 		int[] layout = new int[]{5, 5, 5};
 		
 		String s = "";
