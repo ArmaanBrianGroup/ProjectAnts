@@ -8,6 +8,9 @@ public abstract class Sim_Object {
 	protected Color color;
 	protected int x, y, num, radius, width, height;
 	protected boolean circle;
+	public static enum Type {
+		ANT, FOOD;
+	}
 	
 	public Sim_Object(int x, int y, int num, int radius, Color color) {
 		this.x = x;

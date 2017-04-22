@@ -6,10 +6,6 @@ import javafx.scene.shape.Circle;
 
 public class Food extends Sim_Object {
 
-	Color color;
-	private int radius;
-	private int food;
-
 	public int getX(){
 		return x;
 	}
@@ -20,13 +16,13 @@ public class Food extends Sim_Object {
 		return radius;
 	}
 	
-	public Food(int x, int y, int food, int num){
+	public Food(int x, int y, int radius, int num){
 		
-		super(x, y, num, 1, Color.green); //TODO change radius
+		super(x, y, num, radius, Color.green); //TODO change radius
+	}
+	public Food(int x, int y, int radius, int num, Color c){
 		
-		this.radius = (int) Math.sqrt(food) * 2;
-		this.food = food;
-		color = color.green;
+		super(x, y, num, radius, c); //TODO change radius
 	}
 }
 

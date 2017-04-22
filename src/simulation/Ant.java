@@ -18,7 +18,7 @@ public class Ant extends Sim_Object {
 	public int sight;
 	
 	public Ant(int x, int y, int num) {
-		super(x, y, num, 1, Color.red); //TODO change radius
+		super(x, y, num, 100, Color.red); //TODO change radius
 		
 		
 		int[] layout = new int[]{5, 5, 5};
@@ -33,6 +33,14 @@ public class Ant extends Sim_Object {
 	
 	public void move (double[] boardInfo) { 
 		lastMove = brain.getMaxOutputIndex(boardInfo);
+		
+		
+	}
+	
+	public void test () {
+		int vel = 10;
+		x += (int) (Math.random()*(vel) - (vel/2));
+		y += (int) (Math.random()*(vel) - (vel/2));
 	}
 	
 	public int getXChange() {

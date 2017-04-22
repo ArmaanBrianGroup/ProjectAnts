@@ -5,19 +5,12 @@ package simulation;
 import GUI.Manager;
 
 public class Main {
+	private static Manager m = new Manager(500, 500);
+	private static Ant a = new Ant(100, 200, 0);
 
-	public static void main(String[] args) {
-		
-		int image[][][] = new int[500][500][3];
-		for (int i = 0; i < image.length; i++) {
-			for (int x = 0; x < image[i].length; x++) {
-				for (int y = 0; y < image[i][x].length; y++) {
-					image[i][x][y] = (int) (Math.random()*256);
-				}
-			}
-		}
-		
-		Manager m = new Manager(500, 500, image);
+
+	public static void main(String[] args) {		
+		start(4);
 		
 		
 		/*int[] layout = new int[]{5, 5, 5};
@@ -37,6 +30,19 @@ public class Main {
 			System.out.println(i);
 		}*/
 		
+	}
+	
+	public static void start(int FPS) {
+		while (true) {
+			try {
+				Thread.sleep(1000/FPS);
+				m.getMap().addObjectClump(250, 250, 25, 50, 100, Sim_Object.Type.FOOD);;
+				m.update();
+				m.getMap().clearObjects();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			};
+		}
 	}
 	
 }

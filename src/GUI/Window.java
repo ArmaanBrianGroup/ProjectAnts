@@ -1,10 +1,11 @@
 package GUI;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class Window extends Canvas{
+import javax.swing.JPanel;
 
+public class Window extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private int win_x, win_y;
 	private Image image;
 	
@@ -13,6 +14,11 @@ public class Window extends Canvas{
 		this.win_x = win_x;
 		this.win_y = win_y;
 		this.image = image;
+	}
+	
+	public Window(int win_x, int win_y) {
+		this.win_x = win_x;
+		this.win_y = win_y;
 	}
 	
 	public void paint(Graphics g) {

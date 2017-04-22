@@ -20,12 +20,13 @@ public class Image {
 	public Image(int winx, int winy) {
 		this.winx = winx;
 		this.winy = winy;
-		resetImage();
+		image = new BufferedImage(winx, winy, BufferedImage.TYPE_3BYTE_BGR);
 		g = image.createGraphics();
 	}
 	
 	public void resetImage() {
 		image = new BufferedImage(winx, winy, BufferedImage.TYPE_3BYTE_BGR);
+		g = image.createGraphics();
 	}
 	
 	public void resetImage(int[][][] pixels) {
