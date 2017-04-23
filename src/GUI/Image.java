@@ -61,7 +61,7 @@ public class Image {
 	
 	public void drawRect(Color c, int x, int y, int w, int h) {
         g.setColor(c);
-        g.fillRect(x, y, w, h);;
+        g.fillRect(x, y, w, h);
 	}
 	
 	public void drawLine(Color c, int x1, int x2, int y1, int y2) {

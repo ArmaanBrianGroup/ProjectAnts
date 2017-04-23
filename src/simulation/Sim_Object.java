@@ -32,6 +32,10 @@ public abstract class Sim_Object {
 		circle = true;
 	}
 	
+	public boolean withinBounds(int x, int y) {
+		return Math.sqrt(((x-this.x)^2)+((y-this.y)^2)) <= radius;
+	}
+	
 	public int getX() {
 		return x;
 	}

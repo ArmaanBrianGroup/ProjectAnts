@@ -77,10 +77,16 @@ public class Map_Section {
 
 	public boolean isWithinDrawingBounds(int xOffset, int yOffset, int index) { 
 		Sim_Object o = objects.get(index);
-		System.out.println(o.getBottomY() + yOffset +" "+ o.getTopY() + yOffset +" "+ o.getRightX() + xOffset  +" "+ o.getLeftX() + xOffset);
-
 		return o.getBottomY() + yOffset >= 0 && o.getTopY() + yOffset <= y && o.getRightX() + xOffset >= 0 && o.getLeftX() + xOffset <= x;
 		//return true;
+	}
+	
+	public void clickOnObject(int x, int y) {
+		for (int i = 0; i < objects.size(); i++) {
+			if (objects.get(i).withinBounds(x, y)) {
+				System.out.println(objects.get(i).getRadius());
+			}
+		}
 	}
 	
 }

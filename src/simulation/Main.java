@@ -10,11 +10,11 @@ public class Main {
 
 
 	public static void main(String[] args) {		
-		m.getMap().getSection(0,0).addObject(a);
-		m.getMap().getSection(1,0).addObject(a);
-		m.getMap().getSection(0,1).addObject(a);
-		m.getMap().getSection(1,1).addObject(a);
-		m.update();
+		for (int i = 0; i < m.getMap().map.length; i++) {
+			for (int x = 0; x < m.getMap().map[0].length; x++) {
+				m.getMap().getSection(i, x).addObjectClump((int) (Math.random()*500), (int) (Math.random()*500), 25, 50, 100, Sim_Object.Type.FOOD);
+			}
+		}
 		
 		Timer t = new Timer(60);
 		t.run();

@@ -8,18 +8,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import simulation.Main;
 
 
 
 
 public class Input_Handler implements ActionListener, MouseListener, KeyListener {
 	private int x, y;
+	private Full_Map map;
 	
 	
-	public Input_Handler(int x, int y) {
+	public Input_Handler(int x, int y, Full_Map map) {
 		this.x = x;
 		this.y = y;
+		this.map = map;
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		map.clickOnObject(e.getX(), e.getY(), x, y);
 	}
 
 	@Override
@@ -48,12 +50,27 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(x + " " + y);
-		if (e.getKeyCode() == KeyEvent.VK_UP) y--;
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) y++;
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) x--;
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) x++;
+		if (e.getKeyCode() == KeyEvent.VK_UP && e.getKeyCode() == KeyEvent.VK_LEFT) {
+			y+=5;
+			x+=5;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN && e.getKeyCode() == KeyEvent.VK_LEFT) {
+			y-=5;
+			x+=5;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP && e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			y+=5;
+			x-=5;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN && e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			y-=5;
+			x-=5;
+		}
 
+		if (e.getKeyCode() == KeyEvent.VK_UP) y+=5;
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) y-=5;
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) x+=5;
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) x-=5;
 	}
 
 	@Override
