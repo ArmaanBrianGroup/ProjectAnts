@@ -58,6 +58,7 @@ public class Manager  {
 		return map;
 	}
 	
+	//TODO will not update screen if objects move independently!!!!
 	public void update() {
 		if (lastX != handler.getX() || lastY != handler.getY()) {
 			lastX = handler.getX();
