@@ -46,7 +46,7 @@ public class Map_Section {
 					int obj_x = (int) (r.nextGaussian()*(radius/3) + x);
 					int obj_y = (int) (r.nextGaussian()*(radius/3) + y);
 					int obj_radius = r.nextInt(max_obj_radius) +1;
-					Color c = new Color((int) (Math.random()*50), (int) (Math.random()*56 + 200), ((int) (Math.random()*100)));
+					Color c = new Color((int) (Math.random()*150), (int) (Math.random()*56 + 200), ((int) (Math.random()*150)));
 					objects.add(new Food(obj_x, obj_y, obj_radius, objects.size(), c));
 				}
 		}
@@ -63,6 +63,24 @@ public class Map_Section {
 		}
 
 		return image;
+	}
+	
+	public void drawToImage(Image image, int xOffset, int yOffset) {
+		for (int i = 0; i < objects.size(); i++) {
+
+			if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
+				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
+			}
+		}
+	}
+	
+
+	public boolean isWithinDrawingBounds(int xOffset, int yOffset, int index) { 
+		Sim_Object o = objects.get(index);
+		System.out.println(o.getBottomY() + yOffset +" "+ o.getTopY() + yOffset +" "+ o.getRightX() + xOffset  +" "+ o.getLeftX() + xOffset);
+
+		return o.getBottomY() + yOffset >= 0 && o.getTopY() + yOffset <= y && o.getRightX() + xOffset >= 0 && o.getLeftX() + xOffset <= x;
+		//return true;
 	}
 	
 }

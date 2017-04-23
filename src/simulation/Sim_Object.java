@@ -12,6 +12,7 @@ public abstract class Sim_Object {
 		ANT, FOOD;
 	}
 	
+	//TODO make code work if object is not a rectangle
 	public Sim_Object(int x, int y, int num, int radius, Color color) {
 		this.x = x;
 		this.y = y;
@@ -36,6 +37,30 @@ public abstract class Sim_Object {
 	}
 	public int getY() {
 		return y;
+	}
+	
+	public int getCenterX() {
+		return x+radius;
+	}
+	
+	public int getCenterY() {
+		return y+radius;
+	}
+	
+	public int getTopY() {
+		return getCenterY()-radius;
+	}
+	
+	public int getBottomY() {
+		return getCenterY()+radius;
+	}
+	
+	public int getLeftX() {
+		return getCenterX()-radius;
+	}
+	
+	public int getRightX() {
+		return getCenterX()+radius;
 	}
 	
 	public boolean isCircle() {

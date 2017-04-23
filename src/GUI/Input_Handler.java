@@ -8,10 +8,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import simulation.Main;
+
 
 
 
 public class Input_Handler implements ActionListener, MouseListener, KeyListener {
+	private int x, y;
+	
+	
+	public Input_Handler(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -30,7 +39,6 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(e.getX() + " " + e.getY());
 	}
 
 	@Override
@@ -40,7 +48,12 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		System.out.println(x + " " + y);
+		if (e.getKeyCode() == KeyEvent.VK_UP) y--;
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) y++;
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) x--;
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) x++;
+
 	}
 
 	@Override
@@ -58,6 +71,12 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 		
 	}
 
-
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
 
 }

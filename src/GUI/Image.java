@@ -46,12 +46,12 @@ public class Image {
 	
 	public void drawCircle(int red, int green, int blue, int x, int y, int r) {
         g.setColor(new Color(red, green, blue));
-        g.fillOval(x, y, r, r);
+        g.fillOval(x, y, r*2, r*2);
 	}
 	
 	public void drawCircle(Color c, int x, int y, int r) {
         g.setColor(c);
-        g.fillOval(x, y, r, r);
+        g.fillOval(x, y, r*2, r*2);
 	}
 	
 	public void drawRect(int red, int green, int blue, int x, int y, int w, int h) {
@@ -62,5 +62,10 @@ public class Image {
 	public void drawRect(Color c, int x, int y, int w, int h) {
         g.setColor(c);
         g.fillRect(x, y, w, h);;
+	}
+	
+	public void drawLine(Color c, int x1, int x2, int y1, int y2) {
+		g.setColor(c);
+		g.drawLine(x1, y1, x2, y2);
 	}
 }

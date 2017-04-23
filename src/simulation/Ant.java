@@ -17,6 +17,20 @@ public class Ant extends Sim_Object {
 	public int speed;
 	public int sight;
 	
+	public Ant(int x, int y, int radius,  int num) {
+		super(x, y, num, radius, Color.red);
+		
+		
+		int[] layout = new int[]{5, 5, 5};
+		
+		String s = "";
+		for (int i = 0; i < (layout[0]*layout[1] + layout[1]*layout[2]) * 64; i++) {
+			s += Math.random() > .5 ? "1" : "0";
+		}
+		
+		brain = new Network(layout, s, true);		
+	}
+	
 	public Ant(int x, int y, int num) {
 		super(x, y, num, 100, Color.red); //TODO change radius
 		
