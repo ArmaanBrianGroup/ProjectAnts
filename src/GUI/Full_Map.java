@@ -29,8 +29,8 @@ public class Full_Map {
 	}
 	
 	public Image update(int xPos, int yPos) {
-		if (xPos < 0) xPos = 0; else if (xPos > displayX*map[0].length) xPos = displayX*map[0].length-Map_SectionX;
-		if (yPos < 0) yPos = 0; else if (yPos > displayY*map.length) yPos = displayY*map.length-Map_SectionY;
+		if (xPos <= 0) xPos = 0; else if (xPos >= displayX*map[0].length) xPos = displayX*map[0].length-Map_SectionX;
+		if (yPos <= 0) yPos = 0; else if (yPos >= displayY*map.length) yPos = displayY*map.length-Map_SectionY;
 
 		int x = xPos/Map_SectionX, i = yPos/Map_SectionY;
 		
@@ -57,7 +57,7 @@ public class Full_Map {
 	}
 	
 	public void clickOnObject(int mouseX, int mouseY, int xPos, int yPos) {
-		System.out.println((yPos+mouseY)/Map_SectionY + " " + (xPos+mouseX)/Map_SectionX);
-		map[(yPos+mouseY)/Map_SectionY][(xPos+mouseX)/Map_SectionX].clickOnObject((mouseX+xPos)%Map_SectionX, (mouseY+yPos)%Map_SectionY);
+		//System.out.println((yPos+mouseY)/Map_SectionY + " " + (xPos+mouseX)/Map_SectionX);
+		map[(yPos+mouseY)/Map_SectionY][(xPos+mouseX)/Map_SectionX].clickOnObject(xPos%Map_SectionX + mouseX, yPos%Map_SectionY + mouseY);
 	}
 }

@@ -36,16 +36,22 @@ public class Map_Section {
 		switch (type) {
 			case ANT:
 				for (int i = 0; i < num; i++){
-					int obj_x = (int) (r.nextGaussian()*(radius/3) + x);
-					int obj_y = (int) (r.nextGaussian()*(radius/3) + y);
+					int obj_x = Math.max((int) (r.nextGaussian()*(radius/3) + x), 0);
+					int obj_y = Math.max((int) (r.nextGaussian()*(radius/3) + y), 0);
 					objects.add(new Ant(obj_x, obj_y, objects.size()));
 				}
 				
 			case FOOD:
 				for (int i = 0; i < num; i++){
 					int obj_x = (int) (r.nextGaussian()*(radius/3) + x);
+						obj_x = obj_x > this.x ? this.x : (obj_x < 0 ? 0 : obj_x);
+					
 					int obj_y = (int) (r.nextGaussian()*(radius/3) + y);
-					int obj_radius = r.nextInt(max_obj_radius) +1;
+						obj_y = obj_y > this.y ? this.y : (obj_y < 0 ? 0 : obj_y);
+						
+					int obj_radius = 
+							(obj_x+max_obj_radius*2 > this.x)  || (obj_y+max_obj_radius*2 > this.y) ? 
+							r.nextInt(Math.max(Math.min(this.x-obj_x, this.y-obj_y), 1)) : r.nextInt(max_obj_radius);
 					Color c = new Color((int) (Math.random()*150), (int) (Math.random()*56 + 200), ((int) (Math.random()*150)));
 					objects.add(new Food(obj_x, obj_y, obj_radius, objects.size(), c));
 				}
@@ -84,7 +90,7 @@ public class Map_Section {
 	public void clickOnObject(int x, int y) {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects.get(i).withinBounds(x, y)) {
-				System.out.println(objects.get(i).getRadius());
+				System.out.println(x + " " + y + " " + objects.get(i).getCenterX() + " " + objects.get(i).getBottomY() + " " + objects.get(i).getRadius());
 			}
 		}
 	}
