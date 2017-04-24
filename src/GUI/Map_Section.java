@@ -51,7 +51,7 @@ public class Map_Section {
 						
 					int obj_radius = 
 							(obj_x+max_obj_radius*2 > this.x)  || (obj_y+max_obj_radius*2 > this.y) ? 
-							r.nextInt(Math.max(Math.min(this.x-obj_x, this.y-obj_y), 1)) : r.nextInt(max_obj_radius);
+							r.nextInt(Math.max(Math.min((this.x-obj_x)/2, (this.y-obj_y)/2), 1)) : r.nextInt(max_obj_radius);
 					Color c = new Color((int) (Math.random()*150), (int) (Math.random()*56 + 200), ((int) (Math.random()*150)));
 					objects.add(new Food(obj_x, obj_y, obj_radius, objects.size(), c));
 				}
