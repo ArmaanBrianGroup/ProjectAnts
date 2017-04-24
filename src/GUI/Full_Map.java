@@ -38,9 +38,9 @@ public class Full_Map {
 		map[i+1][x].drawToImage(image, xPos - x*Map_SectionX, yPos - (i+1)*Map_SectionY);
 		map[i][x+1].drawToImage(image, xPos - (x+1)*Map_SectionX, yPos - i*Map_SectionY);
 		map[i+1][x+1].drawToImage(image, xPos - (x+1)*Map_SectionX, yPos - (i+1)*Map_SectionY);	*/
-		
-		for (int a = 0; a < 2 * (displayY/Map_SectionY); a++) {
-			for (int b = 0; b < 2 * (displayX/Map_SectionX); b++) {
+		 
+		for (int a = 0; a < 2 * (displayY/Map_SectionY) && i+a < map.length; a++) {
+			for (int b = 0; b < 2 * (displayX/Map_SectionX) && x+b < map[i+a].length; b++) {
 				map[i+a][x+b].drawToImage(image, xPos - (x+b)*Map_SectionX, yPos - (i+a)*Map_SectionY);
 			}
 		}
@@ -57,7 +57,11 @@ public class Full_Map {
 	}
 	
 	public void clickOnObject(int mouseX, int mouseY, int xPos, int yPos) {
-		//System.out.println((yPos+mouseY)/Map_SectionY + " " + (xPos+mouseX)/Map_SectionX);
-		map[(yPos+mouseY)/Map_SectionY][(xPos+mouseX)/Map_SectionX].clickOnObject(xPos%Map_SectionX + mouseX, yPos%Map_SectionY + mouseY);
+		int i = (yPos+mouseY)/Map_SectionY;
+		int x = (xPos+mouseX)/Map_SectionX;
+		System.out.println((yPos+mouseY)%Map_SectionY + " " + x);
+		map[i][x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
 	}
+	
+	
 }

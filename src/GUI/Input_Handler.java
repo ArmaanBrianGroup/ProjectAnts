@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 
 
@@ -15,7 +16,7 @@ import java.awt.event.MouseListener;
 public class Input_Handler implements ActionListener, MouseListener, KeyListener {
 	private int x, y;
 	private Full_Map map;
-	
+	private ArrayList<Integer> keys = new ArrayList();
 	
 	public Input_Handler(int x, int y, Full_Map map) {
 		this.x = x;
@@ -50,27 +51,10 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_UP && e.getKeyCode() == KeyEvent.VK_LEFT) {
-			y+=5;
-			x+=5;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN && e.getKeyCode() == KeyEvent.VK_LEFT) {
-			y-=5;
-			x+=5;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_UP && e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			y+=5;
-			x-=5;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN && e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			y-=5;
-			x-=5;
-		}
-
-		if (e.getKeyCode() == KeyEvent.VK_UP) y+=5;
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) y-=5;
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) x+=5;
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) x-=5;
+		if (e.getKeyCode() == KeyEvent.VK_UP) keys.add(1);
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) keys.add(2);
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) keys.add(3);
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) keys.add(4);
 	}
 
 	@Override
@@ -89,6 +73,16 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 	}
 
 	public int getX() {
+		
+		for (int i = 0; i < keys.size(); i++) {
+			int k = keys.get(i);
+			if (k == 1) y-=10;
+			else if (k == 2) y+=10;
+			else if (k == 3) x-=10;
+			else if (k == 4) x+=10;
+			keys.remove(i);
+		}
+		
 		return x;
 	}
 	
