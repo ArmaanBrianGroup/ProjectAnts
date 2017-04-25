@@ -7,16 +7,25 @@ public class Evolver {
 		
 		int[] traits = new int[a.getTraits().length];
 		for (int i = 0; i < traits.length; i++) {
-			traits[i] = (a.getTraits()[i]/b.getFitness() + b.getTraits()[i]/a.getFitness())*(a.getFitness()+b.getFitness()); //TODO maybe modify equation
+			double aPercent = 100*(a.getFitness()/(a.getFitness()+b.getFitness()));
+			double bPercent = 100*(b.getFitness()/(a.getFitness()+b.getFitness()));
+			
+			int newTrait = (int) ((a.getTraits()[i]*aPercent + b.getTraits()[i]*bPercent)/100); //TODO maybe modify equation
+			newTrait = (int) (newTrait + (Math.random()*(((a.getTraits()[i]+b.getTraits()[i])/2)+1) - (a.getTraits()[i]+b.getTraits()[i])/4));
 		}
 		
 		double[][][] newWeights = new double[a.getNet().synapses.length][a.getNet().synapses[0].synapses.length][a.getNet().synapses[0].synapses[0].length];
 		for (int i = 0; i < newWeights.length; i++) {
 			for (int x = 0; x < newWeights[i].length; x++) {
 				for (int y = 0; y < newWeights[i][x].length; y++) {
-					double aW = (a.getNet().getWeight(i, x, y) + (b.getNet().getWeight(i, x, y) - a.getNet().getWeight(i, x, y)*Math.random()));
-					double bW = (b.getNet().getWeight(i, x, y) + (a.getNet().getWeight(i, x, y) - b.getNet().getWeight(i, x, y)*Math.random()));
-					newWeights[i][x][y] = Math.random() > 100/b.getFitness() ? aW : bW;
+					double aW = a.getNet().getWeight(i, x, y), bW = b.getNet().getWeight(i, x, y);
+					double aPercent = 100*(a.getFitness()/(a.getFitness()+b.getFitness()));
+					double bPercent = 100*(b.getFitness()/(a.getFitness()+b.getFitness()));
+					
+					double newW = (aW*aPercent + bW*bPercent)/100; //TODO maybe modify equation
+					newW = newW + Math.random()*(aW+bW)/2 - (aW+bW)/4;
+					
+					newWeights[i][x][y] = newW;
 				}
 			}
 		}

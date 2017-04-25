@@ -30,14 +30,14 @@ public class Manager  {
 		f.setVisible(true); 
 	}
 	
-	public Manager(int x, int y) {
+	public Manager(int x, int y, int subX, int subY) {
 		this.x = x;
 		this.y = y;
 	
 		
 		w = new Window(x, y, new Image(x, y)); 
-		map = new Full_Map(x, y, x, y, 16, 16);
-		handler = new Input_Handler((x*16)/2, (y*16)/2, map);
+		map = new Full_Map(x, y, x, y, subX, subY);
+		handler = new Input_Handler((x*subX)/2, (y*subY)/2, map);
 		
 		f = new JFrame();  
 		f.add(w);  

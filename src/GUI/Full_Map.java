@@ -60,7 +60,7 @@ public class Full_Map {
 		int i = (yPos+mouseY)/Map_SectionY;
 		int x = (xPos+mouseX)/Map_SectionX;
 		System.out.println((yPos+mouseY)%Map_SectionY + " " + x);
-		map[i][x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
+		map[map.length-i][map[0].length-x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
 	}
 	
 	

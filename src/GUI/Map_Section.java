@@ -95,4 +95,18 @@ public class Map_Section {
 		}
 	}
 	
+	public void checkCollisions() {
+		for (int i = 0; i < objects.size(); i++) {
+			for (int x = 0; x < objects.size(); x++) {
+				int deltaX = objects.get(i).getCenterX() - objects.get(x).getCenterX();
+				int deltaY = objects.get(i).getCenterY() - objects.get(x).getCenterY();
+				int sumRadii = objects.get(i).getRadius()+objects.get(x).getRadius();
+				
+				if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) <= sumRadii) {
+					if (objects.get(i).actOnCollision(objects.get(x))==true) objects.remove(i);
+				}
+			}
+		}
+	}
+	
 }

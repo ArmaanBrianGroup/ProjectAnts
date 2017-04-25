@@ -86,4 +86,6 @@ public abstract class Sim_Object {
 	public Color getColor() {
 		return color;
 	}
+	
+	public abstract boolean actOnCollision(Sim_Object collidedWith);
 }

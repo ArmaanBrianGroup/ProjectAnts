@@ -14,8 +14,8 @@ public class Ant extends Sim_Object {
 	
 	public int fitness;
 	
+	public int health; //genetic lifetime
 	public int strength;
-	public int health;
 	public int speed;
 	public int sight;
 	
@@ -90,6 +90,12 @@ public class Ant extends Sim_Object {
 	
 	public Network getNet() {
 		return brain;
+	}
+
+	@Override
+	public boolean actOnCollision(Sim_Object collidedWith) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

@@ -24,5 +24,10 @@ public class Food extends Sim_Object {
 		
 		super(x, y, num, radius, c); //TODO change radius
 	}
+	@Override
+	public boolean actOnCollision(Sim_Object collidedWith) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
