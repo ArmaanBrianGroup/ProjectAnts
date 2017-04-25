@@ -12,11 +12,15 @@ public class Ant extends Sim_Object {
 	public int lastMove;
 	public int energy;
 	
+	public int fitness;
+	
 	public int strength;
 	public int health;
 	public int speed;
 	public int sight;
 	
+	public int[] traits; //TODO set this up
+ 	
 	public Ant(int x, int y, int radius,  int num) {
 		super(x, y, num, radius, Color.red);
 		
@@ -45,6 +49,10 @@ public class Ant extends Sim_Object {
 		brain = new Network(layout, s, true);		
 	}
 	
+	public void setTraits(int[] traits) {
+		this.traits = traits;
+	}
+	
 	public void move (double[] boardInfo) { 
 		lastMove = brain.getMaxOutputIndex(boardInfo);
 		
@@ -71,6 +79,17 @@ public class Ant extends Sim_Object {
 		else if (lastMove == 2) return 1;
 		else if (lastMove == 3) return -1;
 		else return 0;
+	}
+	
+	public int getFitness() {
+		return fitness;
+	}
+	public int[] getTraits() {
+		return traits;
+	}
+	
+	public Network getNet() {
+		return brain;
 	}
 	
 	
