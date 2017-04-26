@@ -3,7 +3,7 @@ package simulation;
 public class Evolver {
 
 	public Ant breed(Ant a, Ant b) {
-		Ant newAnt = new Ant ((a.getX() + b.getX())/2, (a.getY() + b.getY())/2, 0);
+		Ant newAnt = new Ant ((a.getX() + b.getX())/2, (a.getY() + b.getY())/2);
 		
 		int[] traits = new int[a.getTraits().length];
 		for (int i = 0; i < traits.length; i++) {

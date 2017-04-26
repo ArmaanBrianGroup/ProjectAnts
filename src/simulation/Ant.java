@@ -11,6 +11,7 @@ public class Ant extends Sim_Object {
 	public int hive;
 	public int lastMove;
 	public int energy;
+	public int healthPoints;
 	
 	public int fitness;
 	
@@ -21,32 +22,32 @@ public class Ant extends Sim_Object {
 	
 	public int[] traits; //TODO set this up
  	
-	public Ant(int x, int y, int radius,  int num) {
-		super(x, y, num, radius, Color.red);
+	public Ant(int x, int y) {
+		super(x, y, 10, Color.red);
 		
 		
-		int[] layout = new int[]{5, 5, 5};
+		/*int[] layout = new int[]{5, 5, 5};
 		
 		String s = "";
 		for (int i = 0; i < (layout[0]*layout[1] + layout[1]*layout[2]) * 64; i++) {
 			s += Math.random() > .5 ? "1" : "0";
 		}
 		
-		brain = new Network(layout, s, true);		
+		brain = new Network(layout, s, true);	*/	
 	}
 	
-	public Ant(int x, int y, int num) {
-		super(x, y, num, 100, Color.red); //TODO change radius
+	public Ant(int x, int y, int[] traits) {
+		super(x, y, 100, Color.red); //TODO change radius
+		this.traits = traits;
 		
-		
-		int[] layout = new int[]{5, 5, 5};
+		/* int[] layout = new int[]{5, 5, 5};
 		
 		String s = "";
 		for (int i = 0; i < (layout[0]*layout[1] + layout[1]*layout[2]) * 64; i++) {
 			s += Math.random() > .5 ? "1" : "0";
 		}
 		
-		brain = new Network(layout, s, true);		
+		brain = new Network(layout, s, true);		*/
 	}
 	
 	public void setTraits(int[] traits) {
@@ -59,10 +60,10 @@ public class Ant extends Sim_Object {
 		
 	}
 	
+	public void update() {
+		test();
+	}
 	public void test () {
-		int vel = 10;
-		x += (int) (Math.random()*(vel) - (vel/2));
-		y += (int) (Math.random()*(vel) - (vel/2));
 	}
 	
 	public int getXChange() {

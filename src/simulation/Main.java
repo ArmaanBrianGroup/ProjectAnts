@@ -6,13 +6,15 @@ import GUI.Manager;
 
 public class Main {
 	private static Manager m = new Manager(500, 500, 16, 16);
-	private static Ant a = new Ant(150, 150, 100, 0);
+	//private static Ant a = new Ant(150, 150, 100, 0);
 
 
 	public static void main(String[] args) {		
 		for (int i = 0; i < m.getMap().map.length; i++) {
 			for (int x = 0; x < m.getMap().map[0].length; x++) {
-				m.getMap().getSection(i, x).addObjectClump((int) (Math.random()*500), (int) (Math.random()*500), 25, 50, 100, Sim_Object.Type.FOOD);
+				
+				m.getMap().getSection(i, x).addFoodClump((int) (Math.random()*500), (int) (Math.random()*500), 25, 50, 100);
+				m.getMap().getSection(i, x).addAnt(100,100);
 			}
 		}
 		
