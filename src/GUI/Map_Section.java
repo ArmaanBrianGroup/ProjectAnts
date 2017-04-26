@@ -11,6 +11,7 @@ import simulation.Sim_Object;
 public class Map_Section {
 	private int x, y;
 	private ArrayList<Sim_Object> objects;
+	private ArrayList<Ant> ants;
 	private Random r = new Random();
 	private Image image;
 	
@@ -32,30 +33,25 @@ public class Map_Section {
 		objects.removeAll(objects);
 	}
 	
-	public void addObjectClump(int x, int y, int num, int max_obj_radius, int radius, Sim_Object.Type type) {
-		switch (type) {
-			case ANT:
-				for (int i = 0; i < num; i++){
-					int obj_x = Math.max((int) (r.nextGaussian()*(radius/3) + x), 0);
-					int obj_y = Math.max((int) (r.nextGaussian()*(radius/3) + y), 0);
-					objects.add(new Ant(obj_x, obj_y, objects.size()));
-				}
+	public void addAnt(int x, int y) {
+		ants.add(new Ant(x,y));
+	}
+	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
+			
+		for (int i = 0; i < num; i++){
+				int obj_x = (int) (r.nextGaussian()*(radius/3) + x);
+					obj_x = obj_x > this.x ? this.x : (obj_x < 0 ? 0 : obj_x);
 				
-			case FOOD:
-				for (int i = 0; i < num; i++){
-					int obj_x = (int) (r.nextGaussian()*(radius/3) + x);
-						obj_x = obj_x > this.x ? this.x : (obj_x < 0 ? 0 : obj_x);
-					
-					int obj_y = (int) (r.nextGaussian()*(radius/3) + y);
-						obj_y = obj_y > this.y ? this.y : (obj_y < 0 ? 0 : obj_y);
+				int obj_y = (int) (r.nextGaussian()*(radius/3) + y);
+					obj_y = obj_y > this.y ? this.y : (obj_y < 0 ? 0 : obj_y);
 						
-					int obj_radius = 
-							(obj_x+max_obj_radius*2 > this.x)  || (obj_y+max_obj_radius*2 > this.y) ? 
-							r.nextInt(Math.max(Math.min((this.x-obj_x)/2, (this.y-obj_y)/2), 1)) : r.nextInt(max_obj_radius);
-					Color c = new Color((int) (Math.random()*150), (int) (Math.random()*56 + 200), ((int) (Math.random()*150)));
-					objects.add(new Food(obj_x, obj_y, obj_radius, objects.size(), c));
-				}
-		}
+				int obj_radius = 
+					(obj_x+max_obj_radius*2 > this.x)  || (obj_y+max_obj_radius*2 > this.y) ? 
+					r.nextInt(Math.max(Math.min((this.x-obj_x)/2, (this.y-obj_y)/2), 1)) : r.nextInt(max_obj_radius);
+				Color c = new Color((int) (Math.random()*150), (int) (Math.random()*56 + 200), ((int) (Math.random()*150)));
+				objects.add(new Food(obj_x, obj_y, obj_radius, c));
+			}
+		
 	}
 	
 	public Image updateImage() {
@@ -64,10 +60,14 @@ public class Map_Section {
 			if (objects.get(i).isCircle()) {
 				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getRadius());
 			} else {
-				image.drawRect(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getWidth(), objects.get(i).getHeight());
+			//	image.drawRect(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getWidth(), objects.get(i).getHeight());
 			}
 		}
 
+		for(int i = 0; i < ants.size(); i++) {
+			ants.get(i).update();
+			image.drawCircle(ants.get(i).getColor(), ants.get(i).getX(), ants.get(i).getY(), 100);
+		}
 		return image;
 	}
 	
