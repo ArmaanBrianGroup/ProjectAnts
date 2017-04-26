@@ -20,6 +20,7 @@ public class Map_Section {
 		this.y = y;
 		
 		objects = new ArrayList<Sim_Object>();
+		ants = new ArrayList<Ant>();
 		
 		image = new Image(x,y);
 	}
