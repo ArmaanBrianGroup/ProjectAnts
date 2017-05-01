@@ -55,6 +55,7 @@ public class Map_Section {
 		
 	}
 	
+	@Deprecated
 	public Image updateImage() {
 		image.resetImage();
 		for (int i = 0; i < objects.size(); i++) {
@@ -76,6 +77,13 @@ public class Map_Section {
 		for (int i = 0; i < objects.size(); i++) {
 
 			if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
+				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
+			}
+		}
+		for(int i = 0; i < ants.size(); i++) {
+			if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {
+			
+				ants.get(i).update();
 				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
 			}
 		}

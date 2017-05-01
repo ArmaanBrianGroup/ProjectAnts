@@ -1,12 +1,14 @@
 package GUI;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Full_Map {
 	
 	public Map_Section[][] map;
 	private int displayX, displayY, Map_SectionX, Map_SectionY;
 	private Image image;
+	private int xPos, yPos;
 		
 	public Full_Map(int displayX, int displayY, int Map_SectionX, int Map_SectionY, int sectionsX, int sectionsY) {
 		this.displayX = displayX;
@@ -22,13 +24,27 @@ public class Full_Map {
 		}	
 		
 		image = new Image(displayX, displayY);
+		
+		xPos = displayX*map.length/2;
+		yPos = displayY*map[0].length/2;
 	}
 	
 	public void refresh() {
 		image.resetImage();
 	}
 	
-	public Image update(int xPos, int yPos) {
+	public void updateXY(ArrayList<Integer> keys) {
+		for (int i = 0; i < keys.size(); i++) {
+			int k = keys.get(i);
+			if (k == 1) yPos-=50;
+			else if (k == 2) yPos+=50;
+			else if (k == 3) xPos-=50;
+			else if (k == 4) xPos+=50;
+			keys.remove(i);
+		}
+	}
+	
+	public Image update() {
 		if (xPos <= 0) xPos = 0; else if (xPos >= displayX*map[0].length) xPos = displayX*map[0].length-Map_SectionX;
 		if (yPos <= 0) yPos = 0; else if (yPos >= displayY*map.length) yPos = displayY*map.length-Map_SectionY;
 
@@ -45,8 +61,8 @@ public class Full_Map {
 			}
 		}
 		
-		image.drawLine(Color.red, 0, 500, yPos%Map_SectionY, yPos%Map_SectionY);
-		image.drawLine(Color.red, xPos%Map_SectionX, xPos%Map_SectionX, 0, 500);
+		image.drawLine(Color.red, 0, Map_SectionY, yPos%Map_SectionY, yPos%Map_SectionY);
+		image.drawLine(Color.red, xPos%Map_SectionX, xPos%Map_SectionX, 0, Map_SectionX);
 
 		
 		return image;
@@ -63,5 +79,12 @@ public class Full_Map {
 		map[map.length-i][map[0].length-x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
 	}
 	
+	public int getX() {
+		return xPos;
+	} 
+	
+	public int getY() {
+		return yPos;
+	}
 	
 }

@@ -14,13 +14,11 @@ import java.util.ArrayList;
 
 
 public class Input_Handler implements ActionListener, MouseListener, KeyListener {
-	private int x, y;
+	
 	private Full_Map map;
 	private ArrayList<Integer> keys = new ArrayList();
 	
-	public Input_Handler(int x, int y, Full_Map map) {
-		this.x = x;
-		this.y = y;
+	public Input_Handler(Full_Map map) {
 		this.map = map;
 	}
 
@@ -41,7 +39,7 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		map.clickOnObject(e.getX(), e.getY(), x, y);
+		//map.clickOnObject(e.getX(), e.getY(), map.getX(), map.getY());
 	}
 
 	@Override
@@ -55,6 +53,8 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) keys.add(2);
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) keys.add(3);
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) keys.add(4);
+		
+		map.updateXY(keys);
 	}
 
 	@Override
@@ -71,23 +71,4 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 	public void actionPerformed(ActionEvent e) {
 		
 	}
-
-	public int getX() {
-		
-		for (int i = 0; i < keys.size(); i++) {
-			int k = keys.get(i);
-			if (k == 1) y-=10;
-			else if (k == 2) y+=10;
-			else if (k == 3) x-=10;
-			else if (k == 4) x+=10;
-			keys.remove(i);
-		}
-		
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-
 }

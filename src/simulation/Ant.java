@@ -23,7 +23,7 @@ public class Ant extends Sim_Object {
 	public int[] traits; //TODO set this up
  	
 	public Ant(int x, int y) {
-		super(x, y, 10, Color.red);
+		super(x, y, 300, Color.red);
 		
 		
 		/*int[] layout = new int[]{5, 5, 5};
@@ -55,7 +55,7 @@ public class Ant extends Sim_Object {
 	}
 	
 	public void move (double[] boardInfo) { 
-		lastMove = brain.getMaxOutputIndex(boardInfo);
+		//lastMove = brain.getMaxOutputIndex(boardInfo);
 		
 		
 	}
@@ -64,22 +64,17 @@ public class Ant extends Sim_Object {
 		test();
 	}
 	public void test () {
+		
 	}
 	
 	public int getXChange() {
-		if (lastMove == 0) return 1;
-		else if (lastMove == 1) return -1;
-		else if (lastMove == 2) return 0;
-		else if (lastMove == 3) return 0;
-		else return 0;
+
+		return 0;
 	}
 	
 	public int getYChange() {
-		if (lastMove == 0) return 0;
-		else if (lastMove == 1) return 0;
-		else if (lastMove == 2) return 1;
-		else if (lastMove == 3) return -1;
-		else return 0;
+
+		return 0;
 	}
 	
 	public int getFitness() {

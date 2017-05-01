@@ -11,7 +11,6 @@ public class Manager  {
 	private int x, y;
 	private Input_Handler handler;
 	private Full_Map map;
-	private int lastX = 0, lastY = 0;
 	
 	public Manager(int x, int y, int[][][] pixels) {
 		this.x = x;
@@ -37,7 +36,7 @@ public class Manager  {
 		
 		w = new Window(x, y, new Image(x, y)); 
 		map = new Full_Map(x, y, x, y, subX, subY);
-		handler = new Input_Handler((x*subX)/2, (y*subY)/2, map);
+		handler = new Input_Handler(map);
 		
 		f = new JFrame();  
 		f.add(w);  
@@ -60,11 +59,7 @@ public class Manager  {
 	
 	//TODO will not update screen if objects move independently!!!!
 	public void update() {
-		if (lastX != handler.getX() || lastY != handler.getY()) {
-			lastX = handler.getX();
-			lastY = handler.getY();
-			map.refresh();
-			w.drawImage(map.update(handler.getX(), handler.getY()));
-		}
+		map.refresh();
+		w.drawImage(map.update());
 	}
 }

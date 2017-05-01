@@ -5,7 +5,7 @@ package simulation;
 import GUI.Manager;
 
 public class Main {
-	private static Manager m = new Manager(500, 500, 16, 16);
+	private static Manager m = new Manager(1000, 1000, 4, 4);
 	//private static Ant a = new Ant(150, 150, 100, 0);
 
 
