@@ -11,16 +11,15 @@ import simulation.Sim_Object;
 public class Map_Section {
 	private int x, y;
 	private ArrayList<Sim_Object> objects;
-	private ArrayList<Ant> ants;
 	private Random r = new Random();
 	private Image image;
+	public static Full_Map map;
 	
 	Map_Section (int x, int y) {
 		this.x = x;
 		this.y = y;
 		
 		objects = new ArrayList<Sim_Object>();
-		ants = new ArrayList<Ant>();
 		
 		image = new Image(x,y);
 	}
@@ -35,7 +34,7 @@ public class Map_Section {
 	}
 	
 	public void addAnt(int x, int y) {
-		ants.add(new Ant(x,y));
+		objects.add(new Ant(x,y));
 	}
 	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
 			
@@ -55,37 +54,36 @@ public class Map_Section {
 		
 	}
 	
-	@Deprecated
-	public Image updateImage() {
-		image.resetImage();
-		for (int i = 0; i < objects.size(); i++) {
-			if (objects.get(i).isCircle()) {
-				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getRadius());
-			} else {
-			//	image.drawRect(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getWidth(), objects.get(i).getHeight());
-			}
+//	@Deprecated
+//	public Image updateImage() {
+//		image.resetImage();
+//		for (int i = 0; i < objects.size(); i++) {
+//			if (objects.get(i).isCircle()) {
+//				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getRadius());
+//			} else {
+//			//	image.drawRect(objects.get(i).getColor(), objects.get(i).getX(), objects.get(i).getY(), objects.get(i).getWidth(), objects.get(i).getHeight());
+//			}
+//		}
+//
+//		for(int i = 0; i < ants.size(); i++) {
+//			ants.get(i).update();
+//			image.drawCircle(ants.get(i).getColor(), ants.get(i).getX(), ants.get(i).getY(), 100);
+//		}
+//		return image;
+//	}
+	
+	public void updateSection() {
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).update();
 		}
-
-		for(int i = 0; i < ants.size(); i++) {
-			ants.get(i).update();
-			image.drawCircle(ants.get(i).getColor(), ants.get(i).getX(), ants.get(i).getY(), 100);
-		}
-		return image;
 	}
 	
 	public void drawToImage(Image image, int xOffset, int yOffset) {
+		
 		for (int i = 0; i < objects.size(); i++) {
-
-			if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
-				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
-			}
-		}
-		for(int i = 0; i < ants.size(); i++) {
-			if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {
-			
-				ants.get(i).update();
-				image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
-			}
+				if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
+					image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
+				}
 		}
 	}
 	
@@ -97,6 +95,7 @@ public class Map_Section {
 	}
 	
 	public void clickOnObject(int x, int y) {
+		System.out.println(0);
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects.get(i).withinBounds(x, y)) {
 				System.out.println(x + " " + y + " " + objects.get(i).getCenterX() + " " + objects.get(i).getBottomY() + " " + objects.get(i).getRadius());
@@ -111,8 +110,8 @@ public class Map_Section {
 				int deltaY = objects.get(i).getCenterY() - objects.get(x).getCenterY();
 				int sumRadii = objects.get(i).getRadius()+objects.get(x).getRadius();
 				
-				if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) <= sumRadii) {
-					if (objects.get(i).actOnCollision(objects.get(x))==true) objects.remove(i);
+				if (Math.pow(deltaX, 2) + Math.pow(deltaY, 2) <= sumRadii*sumRadii) {
+					if (objects.get(i).actOnCollision(objects.get(x))) objects.remove(i);
 				}
 			}
 		}

@@ -41,6 +41,7 @@ public class Main {
 	}
 	
 	public static void update() {
+		
 		m.update();
 	}
 	

@@ -9,11 +9,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.event.MouseInputListener;
 
 
 
 
-public class Input_Handler implements ActionListener, MouseListener, KeyListener {
+
+public class Input_Handler implements ActionListener, MouseListener, KeyListener, MouseInputListener {
 	
 	private Full_Map map;
 	private ArrayList<Integer> keys = new ArrayList();
@@ -39,7 +41,7 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		//map.clickOnObject(e.getX(), e.getY(), map.getX(), map.getY());
+		map.clickOnObject(e.getX(), e.getY(), map.getX(), map.getY());
 	}
 
 	@Override
@@ -69,6 +71,18 @@ public class Input_Handler implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }

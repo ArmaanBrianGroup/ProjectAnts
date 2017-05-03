@@ -60,6 +60,6 @@ public class Manager  {
 	//TODO will not update screen if objects move independently!!!!
 	public void update() {
 		map.refresh();
-		w.drawImage(map.update());
+		w.drawImage(map.render());
 	}
 }

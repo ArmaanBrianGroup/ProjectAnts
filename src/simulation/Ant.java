@@ -23,7 +23,7 @@ public class Ant extends Sim_Object {
 	public int[] traits; //TODO set this up
  	
 	public Ant(int x, int y) {
-		super(x, y, 300, Color.red);
+		super(x, y, 5, Color.red);
 		
 		
 		/*int[] layout = new int[]{5, 5, 5};
@@ -61,7 +61,8 @@ public class Ant extends Sim_Object {
 	}
 	
 	public void update() {
-		test();
+
+		x++; y++;
 	}
 	public void test () {
 		

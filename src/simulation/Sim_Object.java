@@ -16,6 +16,7 @@ public abstract class Sim_Object {
 	}
 	
 
+	public abstract void update();
 	
 	public boolean withinBounds(int x, int y) {
 		return Math.sqrt( Math.pow(x-getCenterX(), 2) + Math.pow(y-getCenterY(), 2) ) <= radius;

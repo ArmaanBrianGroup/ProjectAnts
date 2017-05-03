@@ -15,7 +15,7 @@ public class Full_Map {
 		this.displayY = displayY;
 		this.Map_SectionX = Map_SectionX;
 		this.Map_SectionY = Map_SectionY;
-		
+		Map_Section.map = this;
 		map = new Map_Section[sectionsY][sectionsX];
 		for (int i = 0; i < map.length; i++) {
 			for (int x = 0; x < map[i].length; x++) {
@@ -30,23 +30,24 @@ public class Full_Map {
 	}
 	
 	public void refresh() {
+		updateObjects();
 		image.resetImage();
 	}
 	
 	public void updateXY(ArrayList<Integer> keys) {
 		for (int i = 0; i < keys.size(); i++) {
 			int k = keys.get(i);
-			if (k == 1) yPos-=50;
-			else if (k == 2) yPos+=50;
-			else if (k == 3) xPos-=50;
-			else if (k == 4) xPos+=50;
+			if (k == 1) yPos+=50;
+			else if (k == 2) yPos-=50;
+			else if (k == 3) xPos+=50;
+			else if (k == 4) xPos-=50;
 			keys.remove(i);
 		}
 	}
 	
-	public Image update() {
-		if (xPos <= 0) xPos = 0; else if (xPos >= displayX*map[0].length) xPos = displayX*map[0].length-Map_SectionX;
-		if (yPos <= 0) yPos = 0; else if (yPos >= displayY*map.length) yPos = displayY*map.length-Map_SectionY;
+	public Image render() {
+		if (xPos <= 0) xPos = 0; else if (xPos >= displayX*map[0].length-Map_SectionX) xPos = displayX*map[0].length-Map_SectionX;
+		if (yPos <= 0) yPos = 0; else if (yPos >= displayY*map.length-Map_SectionY) yPos = displayY*map.length-Map_SectionY;
 
 		int x = xPos/Map_SectionX, i = yPos/Map_SectionY;
 		
@@ -68,6 +69,13 @@ public class Full_Map {
 		return image;
 	}
 	
+	public void updateObjects() {
+		for(int r = 0; r < map.length; r++) {
+			for(int c = 0; c < map[0].length; c++) {
+				map[r][c].updateSection();
+			}
+		}
+	}
 	public Map_Section getSection(int i, int x) {
 		return map[i][x];
 	}
@@ -75,8 +83,8 @@ public class Full_Map {
 	public void clickOnObject(int mouseX, int mouseY, int xPos, int yPos) {
 		int i = (yPos+mouseY)/Map_SectionY;
 		int x = (xPos+mouseX)/Map_SectionX;
-		System.out.println((yPos+mouseY)%Map_SectionY + " " + x);
-		map[map.length-i][map[0].length-x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
+		//System.out.println((yPos+mouseY)%Map_SectionY + " " + x);
+		map[i][x].clickOnObject(mouseX - xPos%Map_SectionX, mouseY - yPos%Map_SectionY);
 	}
 	
 	public int getX() {
@@ -86,5 +94,7 @@ public class Full_Map {
 	public int getY() {
 		return yPos;
 	}
+	
+	//public void moveTo
 	
 }
