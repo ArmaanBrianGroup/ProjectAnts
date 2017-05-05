@@ -6,20 +6,24 @@ import java.util.ArrayList;
 public class Full_Map {
 	
 	public Map_Section[][] map;
-	private int displayX, displayY, Map_SectionX, Map_SectionY;
+	int displayX, displayY, subX, subY;
+	private int Map_SectionX;
+	private int Map_SectionY;
 	private Image image;
 	private int xPos, yPos;
 		
 	public Full_Map(int displayX, int displayY, int Map_SectionX, int Map_SectionY, int sectionsX, int sectionsY) {
 		this.displayX = displayX;
 		this.displayY = displayY;
+		subX = sectionsX;
+		subY = sectionsY;
 		this.Map_SectionX = Map_SectionX;
 		this.Map_SectionY = Map_SectionY;
 		Map_Section.map = this;
 		map = new Map_Section[sectionsY][sectionsX];
 		for (int i = 0; i < map.length; i++) {
 			for (int x = 0; x < map[i].length; x++) {
-				map[i][x] = new Map_Section(Map_SectionX, Map_SectionY);
+				map[i][x] = new Map_Section(Map_SectionX, Map_SectionY, i, x);
 			}
 		}	
 		
@@ -29,6 +33,13 @@ public class Full_Map {
 		yPos = displayY*map[0].length/2;
 	}
 	
+	public int getSectionsX() {
+		return map[0].length;
+	}
+	
+	public int getSectionsY() {
+		return map.length;
+	}
 	public void refresh() {
 		updateObjects();
 		image.resetImage();

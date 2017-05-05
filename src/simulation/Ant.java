@@ -62,10 +62,14 @@ public class Ant extends Sim_Object {
 	
 	public void update() {
 
-		x++; y++;
-	}
-	public void test () {
+		x--; y--;
 		
+		
+		
+	}
+
+	public void moveSection () {
+
 	}
 	
 	public int getXChange() {

@@ -28,6 +28,12 @@ public abstract class Sim_Object {
 	public int getY() {
 		return y;
 	}
+	public void setX(int x){
+		this.x = x;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
 	
 	public int getCenterX() {
 		return x+radius;

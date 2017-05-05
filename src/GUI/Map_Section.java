@@ -10,14 +10,17 @@ import simulation.Sim_Object;
 
 public class Map_Section {
 	private int x, y;
+	private int sectionX, sectionY;
 	private ArrayList<Sim_Object> objects;
 	private Random r = new Random();
 	private Image image;
 	public static Full_Map map;
 	
-	Map_Section (int x, int y) {
+	Map_Section (int x, int y, int sectionX, int sectionY) {
 		this.x = x;
 		this.y = y;
+		this.sectionX = sectionX;
+		this.sectionY = sectionY;
 		
 		objects = new ArrayList<Sim_Object>();
 		
@@ -35,6 +38,36 @@ public class Map_Section {
 	
 	public void addAnt(int x, int y) {
 		objects.add(new Ant(x,y));
+	}
+
+	public void moveSection() {
+		for(int i = 0; i < objects.size(); i++) {
+			if(objects.get(i).getX() > map.displayX && sectionX == map.subX - 1) objects.get(i).setX(map.displayX);
+			if(objects.get(i).getY() > map.displayY && sectionY == map.subY - 1) objects.get(i).setY(map.displayY);
+			if(objects.get(i).getX() < 0 && sectionX == 0) objects.get(i).setX(0);
+			if(objects.get(i).getY() < 0 && sectionY == 0) {objects.get(i).setY(0); System.out.println("fu" + objects.get(i).getY());}
+			
+			if(objects.get(i).getX() < 0) {
+				System.out.println(objects.get(i).getX());
+				objects.get(i).setX(objects.get(i).getX() + map.displayX);
+				map.getSection(x - 1, y).objects.add(objects.remove(i));
+			}
+			if(objects.get(i).getY() < 0) {
+				System.out.println(objects.get(i).getY() + " " + sectionY);
+				objects.get(i).setY(objects.get(i).getY() + map.displayY);
+				map.getSection(x, y - 1).objects.add(objects.remove(i));
+			}
+			if(objects.get(i).getX() > map.displayX) {
+				objects.get(i).setX(objects.get(i).getX() - map.displayX);
+
+				map.getSection(x + 1, y).objects.add(objects.remove(i)); 
+			}
+			if(objects.get(i).getY() > map.displayY) {
+				objects.get(i).setY(objects.get(i).getY() - map.displayY);
+				map.getSection(x, y + 1).objects.add(objects.remove(i));
+			}
+			
+		}
 	}
 	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
 			
@@ -73,6 +106,7 @@ public class Map_Section {
 //	}
 	
 	public void updateSection() {
+		moveSection();
 		for(int i = 0; i < objects.size(); i++) {
 			objects.get(i).update();
 		}
@@ -116,5 +150,7 @@ public class Map_Section {
 			}
 		}
 	}
+	
+	
 	
 }
