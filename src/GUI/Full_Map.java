@@ -88,6 +88,9 @@ public class Full_Map {
 		}
 	}
 	public Map_Section getSection(int i, int x) {
+		
+		if (i < 0 || x < 0 || i >= map.length || x >+ map[0].length) return map[2][2];
+		
 		return map[i][x];
 	}
 	

@@ -28,22 +28,21 @@ public class Food extends Sim_Object {
 	
 	public Food(int x, int y, int radius, Color c) {
 
-		super(x, y, radius, c);
+		super(x, y, radius, c, 0);
 	}
 	public Food(int x, int y, int radius){
 		
-		super(x, y, radius, Color.green); //TODO change radius
+		super(x, y, radius, Color.green, 0); //TODO change radius
 		food = radius * radius / 100;
 	}
 	public Food(int x, int y, int radius, double food, Color c){
 		
-		super(x, y, radius, c); //TODO change radius
+		super(x, y, radius, c, 0); //TODO change radius
 		this.food = food;
 	}
 	@Override
-	public boolean actOnCollision(Sim_Object collidedWith) {
-		// TODO Auto-generated method stub
-		return false;
+	public void checkCollision(Sim_Object object) {
+		// TODO make this work
 	}
 
 	@Override

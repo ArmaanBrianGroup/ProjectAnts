@@ -20,10 +20,13 @@ public class Ant extends Sim_Object {
 	public int speed;
 	public int sight;
 	
+	public double[] vision_dist;
+	public Sim_Object[] vision;
+	
 	public int[] traits; //TODO set this up
  	
 	public Ant(int x, int y) {
-		super(x, y, 5, Color.red);
+		super(x, y, 5, Color.red, 1);
 		
 		
 		/*int[] layout = new int[]{5, 5, 5};
@@ -37,7 +40,7 @@ public class Ant extends Sim_Object {
 	}
 	
 	public Ant(int x, int y, int[] traits) {
-		super(x, y, 100, Color.red); //TODO change radius
+		super(x, y, 100, Color.red, 1); //TODO change radius
 		this.traits = traits;
 		
 		/* int[] layout = new int[]{5, 5, 5};
@@ -54,10 +57,21 @@ public class Ant extends Sim_Object {
 		this.traits = traits;
 	}
 	
-	public void move (double[] boardInfo) { 
-		//lastMove = brain.getMaxOutputIndex(boardInfo);
+	public void withinViewingDistance(double distance) {
 		
+	}
+	
+	public void move () { 
+		double vision[] = new double[this.vision.length * 3];
 		
+		int index = 0;
+		for (int i = 0; i < this.vision.length; i+=4) {
+			vision[i] = (double) this.vision[i].getX();
+			vision[i+1] = (double) this.vision[i].getY();
+			vision[i+2] = (double) this.vision[i].getType();		
+		}
+		
+		brain.getOutput(vision);
 	}
 	
 	public void update() {
@@ -94,9 +108,33 @@ public class Ant extends Sim_Object {
 	}
 
 	@Override
-	public boolean actOnCollision(Sim_Object collidedWith) {
-		// TODO Auto-generated method stub
-		return false;
+	public void checkCollision(Sim_Object object) {
+		int deltaX = getCenterX() - object.getCenterX();
+		int deltaY = getCenterY() - object.getCenterY();
+		double distance = deltaX*deltaX + deltaY*deltaY;
+		int sumRadii = getRadius()+object.getRadius();
+		
+		if (distance <= sumRadii*sumRadii) {
+			
+		} else if (distance <= (double) sight) {
+			
+			for (int i = 0; i < vision.length; i++) {
+				if (vision_dist[i] < distance) {
+					Sim_Object last = object;
+					double dist = distance;
+					for (int x = i; x < vision.length; x++) {
+						double distTemp = vision_dist[i];
+						Sim_Object temp = vision[i];
+					
+						vision[i] = object;
+						vision_dist[i] = dist;
+						
+						dist = distTemp;
+						last = temp;
+					}
+				}
+			}
+		}
 	}
 	
 	

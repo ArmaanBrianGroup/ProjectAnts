@@ -48,21 +48,19 @@ public class Map_Section {
 			if(objects.get(i).getY() < 0 && sectionY == 0) {objects.get(i).setY(0); System.out.println("fu" + objects.get(i).getY());}
 			
 			if(objects.get(i).getX() < 0) {
-				System.out.println(objects.get(i).getX());
 				objects.get(i).setX(objects.get(i).getX() + map.displayX);
 				map.getSection(x - 1, y).objects.add(objects.remove(i));
 			}
-			if(objects.get(i).getY() < 0) {
-				System.out.println(objects.get(i).getY() + " " + sectionY);
+			else if(objects.get(i).getY() < 0) {
 				objects.get(i).setY(objects.get(i).getY() + map.displayY);
 				map.getSection(x, y - 1).objects.add(objects.remove(i));
 			}
-			if(objects.get(i).getX() > map.displayX) {
+			else if(objects.get(i).getX() > map.displayX) {
 				objects.get(i).setX(objects.get(i).getX() - map.displayX);
 
 				map.getSection(x + 1, y).objects.add(objects.remove(i)); 
 			}
-			if(objects.get(i).getY() > map.displayY) {
+			else if(objects.get(i).getY() > map.displayY) {
 				objects.get(i).setY(objects.get(i).getY() - map.displayY);
 				map.getSection(x, y + 1).objects.add(objects.remove(i));
 			}
@@ -140,13 +138,7 @@ public class Map_Section {
 	public void checkCollisions() {
 		for (int i = 0; i < objects.size(); i++) {
 			for (int x = 0; x < objects.size(); x++) {
-				int deltaX = objects.get(i).getCenterX() - objects.get(x).getCenterX();
-				int deltaY = objects.get(i).getCenterY() - objects.get(x).getCenterY();
-				int sumRadii = objects.get(i).getRadius()+objects.get(x).getRadius();
-				
-				if (Math.pow(deltaX, 2) + Math.pow(deltaY, 2) <= sumRadii*sumRadii) {
-					if (objects.get(i).actOnCollision(objects.get(x))) objects.remove(i);
-				}
+				if (objects.get(i).getType() == 1) objects.get(i).checkCollision(objects.get(x));
 			}
 		}
 	}

@@ -7,12 +7,15 @@ import com.sun.javafx.geom.Shape;
 public abstract class Sim_Object {
 	protected Color color;
 	protected int x, y, num, radius;
-	boolean circle = true;
-	public Sim_Object(int x, int y, int radius, Color color) {
+	protected boolean circle = true;
+	protected int type; // 0 = food, 1 = ant ...
+	
+	public Sim_Object(int x, int y, int radius, Color color, int type) {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
 		this.color = color;
+		this.type = type;
 	}
 	
 
@@ -71,5 +74,9 @@ public abstract class Sim_Object {
 		return color;
 	}
 	
-	public abstract boolean actOnCollision(Sim_Object collidedWith);
+	public abstract void checkCollision(Sim_Object object);
+	
+	public int getType () {
+		return type;
+	}
 }
