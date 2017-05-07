@@ -28,30 +28,29 @@ public class Ant extends Sim_Object {
 	public Ant(int x, int y) {
 		super(x, y, 5, Color.red, 1);
 		
+		vision = new Sim_Object[sight];
+		vision_dist = new double[sight];
 		
-		/*int[] layout = new int[]{5, 5, 5};
+		int[] layout = new int[]{3*sight, 5, 2};
 		
 		String s = "";
 		for (int i = 0; i < (layout[0]*layout[1] + layout[1]*layout[2]) * 64; i++) {
 			s += Math.random() > .5 ? "1" : "0";
 		}
 		
-		brain = new Network(layout, s, true);	*/	
+		brain = new Network(layout, s, true);
+		
+		traits = new int[4];
+		for (int i = 0; i < traits.length; i++) {
+			traits[i] = (int) (Math.random()*10 + 1);
+		}
+		
+		health = traits[0];
+		strength = traits[1];
+		speed = traits[2];
+		sight = traits[3];
 	}
 	
-	public Ant(int x, int y, int[] traits) {
-		super(x, y, 100, Color.red, 1); //TODO change radius
-		this.traits = traits;
-		
-		/* int[] layout = new int[]{5, 5, 5};
-		
-		String s = "";
-		for (int i = 0; i < (layout[0]*layout[1] + layout[1]*layout[2]) * 64; i++) {
-			s += Math.random() > .5 ? "1" : "0";
-		}
-		
-		brain = new Network(layout, s, true);		*/
-	}
 	
 	public void setTraits(int[] traits) {
 		this.traits = traits;
@@ -71,15 +70,14 @@ public class Ant extends Sim_Object {
 			vision[i+2] = (double) this.vision[i].getType();		
 		}
 		
-		brain.getOutput(vision);
+		double[] out = brain.getOutput(vision);
+		 x += out[0]*speed;
+		 y += out[1]*speed;
 	}
 	
 	public void update() {
-
-		x--; y--;
-		
-		
-		
+		move();
+		energy--;
 	}
 
 	public void moveSection () {
@@ -115,6 +113,11 @@ public class Ant extends Sim_Object {
 		int sumRadii = getRadius()+object.getRadius();
 		
 		if (distance <= sumRadii*sumRadii) {
+			if (object.getType() == 0) {
+				energy += object.getRadius();
+			} else if (object.getType() == 1){
+				
+			}
 			
 		} else if (distance <= (double) sight) {
 			
