@@ -14,7 +14,7 @@ public class Main {
 			for (int x = 0; x < m.getMap().map[0].length; x++) {
 				
 				m.getMap().getSection(i, x).addFoodClump((int) (Math.random()*500), (int) (Math.random()*500), 25, 50, 100);
-				m.getMap().getSection(i, x).addAnt(100,100);
+				for (int a = (int)(Math.random() * 20); a >= 0; a--) m.getMap().getSection(i, x).addAnt(100,100);
 			}
 		}
 		

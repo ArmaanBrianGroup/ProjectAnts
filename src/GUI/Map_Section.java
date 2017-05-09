@@ -37,7 +37,15 @@ public class Map_Section {
 	}
 	
 	public void addAnt(int x, int y) {
-		objects.add(new Ant(x,y));
+		objects.add(new Ant(x,y, this));
+	}
+	
+	public void addAnt(Ant a) {
+		objects.add(a);
+	}
+	
+	public void addAnt() {
+		objects.add(new Ant((int)(Math.random()*x), (int)Math.random()*y, this));
 	}
 
 	public void moveSection() {
@@ -142,6 +150,7 @@ public class Map_Section {
 			}
 		}
 	}
+	
 	
 	
 	

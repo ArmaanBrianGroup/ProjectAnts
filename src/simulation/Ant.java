@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import com.sun.xml.internal.bind.v2.TODO;
 
+import GUI.Map_Section;
 import neural_network.Network;
 
 public class Ant extends Sim_Object {
@@ -13,6 +14,7 @@ public class Ant extends Sim_Object {
 	public int energy;
 	public int healthPoints;
 	
+	
 	public int fitness;
 	
 	public int health; //genetic lifetime
@@ -20,14 +22,17 @@ public class Ant extends Sim_Object {
 	public int speed;
 	public int sight;
 	
+	private Map_Section section;
+	
 	public double[] vision_dist;
 	public Sim_Object[] vision;
 	
 	public int[] traits; //TODO set this up
  	
-	public Ant(int x, int y) {
+	public Ant(int x, int y, Map_Section section) {
 		super(x, y, 5, Color.red, 1);
-		
+		this.section = section;
+
 		vision = new Sim_Object[sight];
 		vision_dist = new double[sight];
 		
@@ -116,7 +121,7 @@ public class Ant extends Sim_Object {
 			if (object.getType() == 0) {
 				energy += object.getRadius();
 			} else if (object.getType() == 1){
-				
+				section.addAnt(Evolver.breed(this, (Ant) object));
 			}
 			
 		} else if (distance <= (double) sight) {
@@ -138,6 +143,10 @@ public class Ant extends Sim_Object {
 				}
 			}
 		}
+	}
+	
+	public Map_Section getSection() {
+		return section;
 	}
 	
 	
