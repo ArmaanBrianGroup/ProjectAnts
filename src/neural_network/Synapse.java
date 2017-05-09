@@ -16,7 +16,8 @@ public class Synapse {
 	}
 	
 	public Synapse() {
-		weight = Math.random();
+		weight = Math.random()*2 - 1;
+		//System.out.println(weight);
 	}
 	
 	public void randWeight() {

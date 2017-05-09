@@ -57,7 +57,8 @@ public class Network {
 	}
 	
 	public double[] getOutput(double[] input) {
-		return neurons[0].push(input, this);
+		double[] a =  neurons[0].push(input, this);
+		return a;
 	}
 	
 	public int getMaxOutputIndex(double[] input) {

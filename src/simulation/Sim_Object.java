@@ -20,11 +20,7 @@ public abstract class Sim_Object {
 	
 
 	public abstract void update();
-	
-	public boolean withinBounds(int x, int y) {
-		return Math.sqrt( Math.pow(x-getCenterX(), 2) + Math.pow(y-getCenterY(), 2) ) <= radius;
-	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -36,30 +32,6 @@ public abstract class Sim_Object {
 	}
 	public void setY(int y) {
 		this.y = y;
-	}
-	
-	public int getCenterX() {
-		return x+radius;
-	}
-	
-	public int getCenterY() {
-		return y+radius;
-	}
-	
-	public int getTopY() {
-		return getCenterY()-radius;
-	}
-	
-	public int getBottomY() {
-		return getCenterY()+radius;
-	}
-	
-	public int getLeftX() {
-		return getCenterX()-radius;
-	}
-	
-	public int getRightX() {
-		return getCenterX()+radius;
 	}
 	
 	public boolean isCircle() {

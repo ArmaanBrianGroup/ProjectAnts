@@ -53,24 +53,25 @@ public class Map_Section {
 			if(objects.get(i).getX() > map.displayX && sectionX == map.subX - 1) objects.get(i).setX(map.displayX);
 			if(objects.get(i).getY() > map.displayY && sectionY == map.subY - 1) objects.get(i).setY(map.displayY);
 			if(objects.get(i).getX() < 0 && sectionX == 0) objects.get(i).setX(0);
-			if(objects.get(i).getY() < 0 && sectionY == 0) {objects.get(i).setY(0); System.out.println("fu" + objects.get(i).getY());}
+			if(objects.get(i).getY() < 0 && sectionY == 0) {objects.get(i).setY(0);
 			
+			}
 			if(objects.get(i).getX() < 0) {
 				objects.get(i).setX(objects.get(i).getX() + map.displayX);
-				map.getSection(x - 1, y).objects.add(objects.remove(i));
+				map.getSection(sectionX - 1, sectionY).objects.add(objects.remove(i));
 			}
 			else if(objects.get(i).getY() < 0) {
 				objects.get(i).setY(objects.get(i).getY() + map.displayY);
-				map.getSection(x, y - 1).objects.add(objects.remove(i));
+				map.getSection(sectionX, sectionY - 1).objects.add(objects.remove(i));
 			}
 			else if(objects.get(i).getX() > map.displayX) {
 				objects.get(i).setX(objects.get(i).getX() - map.displayX);
 
-				map.getSection(x + 1, y).objects.add(objects.remove(i)); 
+				map.getSection(sectionX + 1, sectionY).objects.add(objects.remove(i)); 
 			}
 			else if(objects.get(i).getY() > map.displayY) {
 				objects.get(i).setY(objects.get(i).getY() - map.displayY);
-				map.getSection(x, y + 1).objects.add(objects.remove(i));
+				map.getSection(sectionX, sectionY + 1).objects.add(objects.remove(i));
 			}
 			
 		}

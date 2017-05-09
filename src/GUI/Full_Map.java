@@ -40,8 +40,14 @@ public class Full_Map {
 	public int getSectionsY() {
 		return map.length;
 	}
+	
 	public void refresh() {
-		updateObjects();
+		for(int r = 0; r < map.length; r++) {
+			for(int c = 0; c < map[0].length; c++) {
+				map[r][c].updateSection();
+			}
+		}
+		
 		image.resetImage();
 	}
 	
@@ -80,13 +86,6 @@ public class Full_Map {
 		return image;
 	}
 	
-	public void updateObjects() {
-		for(int r = 0; r < map.length; r++) {
-			for(int c = 0; c < map[0].length; c++) {
-				map[r][c].updateSection();
-			}
-		}
-	}
 	public Map_Section getSection(int i, int x) {
 		
 		if (i < 0 || x < 0 || i >= map.length || x >+ map[0].length) return map[2][2];
