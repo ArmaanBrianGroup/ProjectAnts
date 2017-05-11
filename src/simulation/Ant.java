@@ -33,7 +33,7 @@ public class Ant extends Sim_Object {
 		super(x, y, 5, Color.red, 1);
 		this.section = section;
 
-		vision = new Sim_Object[sight];
+		vision = new Sim_Object[4];
 		vision_dist = new double[sight];
 		
 		int[] layout = new int[]{3*sight, 5, 2};
@@ -69,11 +69,14 @@ public class Ant extends Sim_Object {
 		double vision[] = new double[this.vision.length * 3];
 		
 		for (int i = 0; i < this.vision.length; i+=3) {
+			System.out.println(this.vision[i]);
 			vision[i] = (double) this.vision[i].getX();
 			vision[i+1] = (double) this.vision[i].getY();
 			vision[i+2] = (double) this.vision[i].getType();		
 		}
 		double[] out = brain.getOutput(vision);
+		
+		//System.out.println(vision[0] + " " + vision[1] + " " +  vision[2]);
 		
 		int xD = (int) ((Math.random() - 0.5)*10);
 		int yD = (int) ((Math.random() - 0.5)*10);
@@ -85,7 +88,6 @@ public class Ant extends Sim_Object {
 	
 	public void update() {
 		move();
-
 	}
 
 	public void moveSection () {
@@ -116,34 +118,41 @@ public class Ant extends Sim_Object {
 	@Override
 	public void checkCollision(Sim_Object object) {
 
-		if(Math.abs((x - object.getX()))  
-		
-//		if (distance <= sumRadii*sumRadii) {
-//			if (object.getType() == 0) {
-//				energy += object.getRadius();
-//			} else if (object.getType() == 1){
-//				section.addAnt(Evolver.breedN(this, (Ant) object));
-//			}
-//			
-//		} else if (distance <= (double) sight) {
-//			
-//			for (int i = 0; i < vision.length; i++) {
-//				if (vision_dist[i] < distance) {
-//					Sim_Object last = object;
-//					double dist = distance;
-//					for (int x = i; x < vision.length; x++) {
-//						double distTemp = vision_dist[i];
-//						Sim_Object temp = vision[i];
-//					
-//						vision[i] = object;
-//						vision_dist[i] = dist;
-//						
-//						dist = distTemp;
-//						last = temp;
-//					}
-//				}
-//			}
+		if (object != this) {
+			double distance = Math.pow(getX() - object.getX(), 2) + Math.pow(getY() - object.getY(), 2);
+			double sumRadii = (double) (getRadius() + object.getRadius());
+			
+			
+			System.out.println(distance + " " + (sumRadii*sumRadii));
+			
+			if (distance <= sumRadii*sumRadii) {
+				if (object.getType() == 0) {
+					energy += object.getRadius();
+				} else if (object.getType() == 1){
+					section.addAnt(Evolver.breedN(this, (Ant) object));
+				}
+			} else if (distance <= (double) sight) {
+				System.out.println(object);
+
+				for (int i = 0; i < vision.length; i++) {
+					if (vision_dist[i] < distance) {
+						Sim_Object last = object;
+						double dist = distance;
+						for (int x = i; x < vision.length; x++) {
+							double distTemp = vision_dist[i];
+							Sim_Object temp = vision[i];
+						
+							vision[i] = object;
+							vision_dist[i] = dist;
+							
+							dist = distTemp;
+							last = temp;
+						}
+					}
+				}
+			}
 		}
+	}
 	
 	
 	public Map_Section getSection() {

@@ -113,14 +113,17 @@ public class Map_Section {
 //	}
 	
 	public void updateSection() {
+
 		moveSection();
+		checkCollisions();
 		for(int i = 0; i < objects.size(); i++) {
+
 			objects.get(i).update();
 		}
 	}
 	
 	public void drawToImage(Image image, int xOffset, int yOffset) {
-		
+		System.out.println(7);
 		for (int i = 0; i < objects.size(); i++) {
 				if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
 					image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());
@@ -131,7 +134,7 @@ public class Map_Section {
 
 	public boolean isWithinDrawingBounds(int xOffset, int yOffset, int index) { 
 		Sim_Object o = objects.get(index);
-		return o.getBottomY() + yOffset >= 0 && o.getTopY() + yOffset <= y && o.getRightX() + xOffset >= 0 && o.getLeftX() + xOffset <= x;
+		return o.getBottomY() + yOffset >= 0 && o.getY() + yOffset <= y && o.getRightX() + xOffset >= 0 && o.getX() + xOffset <= x;
 		//return true;
 	}
 	

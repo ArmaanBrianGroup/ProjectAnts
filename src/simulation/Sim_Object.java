@@ -27,6 +27,19 @@ public abstract class Sim_Object {
 	public int getY() {
 		return y;
 	}
+	
+	public int getRightX() {
+		return x+radius*2;
+	}
+	public int getBottomY() {
+		return y+radius*2;
+	}
+	public int getCenterX() {
+		return x+radius;
+	}
+	public int getCenterY() {
+		return y+radius;
+	}
 	public void setX(int x){
 		this.x = x;
 	}
@@ -47,6 +60,12 @@ public abstract class Sim_Object {
 	}
 	
 	public abstract void checkCollision(Sim_Object object);
+	
+	public boolean withinBounds(int x, int y) {
+		boolean isX = x <= getRightX() && x >= getX();
+		boolean isY = y <= getBottomY() && y >= getY();
+		return isX && isY;
+	}
 	
 	public int getType () {
 		return type;

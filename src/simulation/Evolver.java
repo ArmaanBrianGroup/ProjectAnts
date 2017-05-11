@@ -39,7 +39,7 @@ public class Evolver {
 	public static Ant breedN(Ant a, Ant b) {
 		Ant newAnt = new Ant ((a.getX() + b.getX())/2, (a.getY() + b.getY())/2, a.getSection());
 		
-		int[] traits = new int[a.getTraits().length];
+		/*int[] traits = new int[a.getTraits().length];
 		for (int i = 0; i < traits.length; i++) {
 			
 						
@@ -61,7 +61,7 @@ public class Evolver {
 			}
 		}
 		
-		newAnt.getNet().update_weights(newWeights);
+		newAnt.getNet().update_weights(newWeights);*/
 		
 		return newAnt;
 	}

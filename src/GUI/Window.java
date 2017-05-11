@@ -22,6 +22,7 @@ public class Window extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
+		System.out.println("dreq");
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(image.getImage(), 0, 0, image.getImage().getWidth(), image.getImage().getHeight(), null);
 	}
