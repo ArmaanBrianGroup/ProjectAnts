@@ -89,8 +89,8 @@ public class Ant extends Sim_Object {
 		int xD = (int) ((out[0] - 0.5)*10);
 		int yD = (int) ((out[1] - 0.5)*10);
 				
-		x += 5; //xD
-		y += 5; //yD;
+		x += -5; //xD
+		y += -5; //yD;
 
 	}
 	
