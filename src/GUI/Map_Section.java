@@ -50,30 +50,25 @@ public class Map_Section {
 
 	public void moveSection() {
 		for(int i = 0; i < objects.size(); i++) {
-			if(objects.get(i).getX() > map.displayX && sectionX == map.subX - 1) objects.get(i).setX(map.displayX);
-			if(objects.get(i).getY() > map.displayY && sectionY == map.subY - 1) objects.get(i).setY(map.displayY);
-			if(objects.get(i).getX() < 0 && sectionX == 0) objects.get(i).setX(0);
-			if(objects.get(i).getY() < 0 && sectionY == 0) {objects.get(i).setY(0);
-			
-			}
-			if(objects.get(i).getX() < 0) {
-				objects.get(i).setX(objects.get(i).getX() + map.displayX);
-				map.getSection(sectionX - 1, sectionY).objects.add(objects.remove(i));
-			}
-			else if(objects.get(i).getY() < 0) {
-				objects.get(i).setY(objects.get(i).getY() + map.displayY);
-				map.getSection(sectionX, sectionY - 1).objects.add(objects.remove(i));
-			}
-			else if(objects.get(i).getX() > map.displayX) {
-				objects.get(i).setX(objects.get(i).getX() - map.displayX);
+			int newx = this.sectionX, newy = this.sectionY;
 
-				map.getSection(sectionX + 1, sectionY).objects.add(objects.remove(i)); 
+			if(objects.get(i).getX() < 0 && sectionX > 0) {
+				newx--;
+				objects.get(i).setX(x);
 			}
-			else if(objects.get(i).getY() > map.displayY) {
-				objects.get(i).setY(objects.get(i).getY() - map.displayY);
-				map.getSection(sectionX, sectionY + 1).objects.add(objects.remove(i));
+			if(objects.get(i).getY() < 0 && sectionY > 0) {
+				newy--;
+				objects.get(i).setY(y);
 			}
-			
+			if(objects.get(i).getX() > x && sectionX < map.map.length) {
+				newx++;
+				objects.get(i).setX(0);
+			}
+			if(objects.get(i).getY() < 0 && sectionY < map.map[0].length) {
+				newy++;
+				objects.get(i).setY(0);
+			}
+			map.getSection(newx, newy).addObject(objects.remove(i));;
 		}
 	}
 	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
@@ -123,7 +118,6 @@ public class Map_Section {
 	}
 	
 	public void drawToImage(Image image, int xOffset, int yOffset) {
-		System.out.println(7);
 		for (int i = 0; i < objects.size(); i++) {
 				if (objects.get(i).isCircle() && isWithinDrawingBounds(xOffset, yOffset, i)) {			
 					image.drawCircle(objects.get(i).getColor(), objects.get(i).getX() + xOffset, objects.get(i).getY() + yOffset, objects.get(i).getRadius());

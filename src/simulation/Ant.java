@@ -34,7 +34,7 @@ public class Ant extends Sim_Object {
 		this.section = section;
 
 		vision = new Sim_Object[4];
-		vision_dist = new double[sight];
+		vision_dist = new double[4];
 		
 		int[] layout = new int[]{3*sight, 5, 2};
 		
@@ -69,20 +69,28 @@ public class Ant extends Sim_Object {
 		double vision[] = new double[this.vision.length * 3];
 		
 		for (int i = 0; i < this.vision.length; i+=3) {
-			System.out.println(this.vision[i]);
-			vision[i] = (double) this.vision[i].getX();
-			vision[i+1] = (double) this.vision[i].getY();
-			vision[i+2] = (double) this.vision[i].getType();		
+			//System.out.println(this.vision);
+			double a = 0, b = 0, c = -1;
+			
+			if (this.vision[i] != null){
+			  a = this.vision[i].getX();
+			  b = this.vision[i].getY();
+			  c = this.vision[i].getType();
+			}
+			
+			vision[i] = a;
+			vision[i+1] = b;
+			vision[i+2] = c;		
 		}
 		double[] out = brain.getOutput(vision);
 		
 		//System.out.println(vision[0] + " " + vision[1] + " " +  vision[2]);
 		
-		int xD = (int) ((Math.random() - 0.5)*10);
-		int yD = (int) ((Math.random() - 0.5)*10);
+		int xD = (int) ((out[0] - 0.5)*10);
+		int yD = (int) ((out[1] - 0.5)*10);
 				
-		 x += yD;
-		 y += xD;
+		x += 5; //xD
+		y += 5; //yD;
 
 	}
 	
@@ -123,7 +131,7 @@ public class Ant extends Sim_Object {
 			double sumRadii = (double) (getRadius() + object.getRadius());
 			
 			
-			System.out.println(distance + " " + (sumRadii*sumRadii));
+			//System.out.println(distance + " " + (sumRadii*sumRadii));
 			
 			if (distance <= sumRadii*sumRadii) {
 				if (object.getType() == 0) {
@@ -131,9 +139,7 @@ public class Ant extends Sim_Object {
 				} else if (object.getType() == 1){
 					section.addAnt(Evolver.breedN(this, (Ant) object));
 				}
-			} else if (distance <= (double) sight) {
-				System.out.println(object);
-
+			} else if (distance <= (double) sight*sight) {
 				for (int i = 0; i < vision.length; i++) {
 					if (vision_dist[i] < distance) {
 						Sim_Object last = object;
