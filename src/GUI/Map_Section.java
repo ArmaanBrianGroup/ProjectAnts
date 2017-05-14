@@ -50,28 +50,36 @@ public class Map_Section {
 
 	public void moveSection() {
 		for(int i = 0; i < objects.size(); i++) {
-			int newx = this.sectionX, newy = this.sectionY;
+			int newx = sectionX, newy = sectionY;
 
 			if (objects.get(i).getType() == 1) {
-
-			if(objects.get(i).getX() < 0 && sectionX > 0) {
-				newx--;
-				objects.get(i).setX(x);
+				if(objects.get(i).getX() < 0 && sectionX > 0) {
+					newx--;
+					objects.get(i).setX(x+objects.get(i).getX());
+				} else if(objects.get(i).getRightX() > x && sectionX < map.map.length-1) {
+					newx++;
+					objects.get(i).setX(objects.get(i).getX()-x);
+				} else if (objects.get(i).getX() < 0 && sectionX <= 0) {
+					objects.get(i).setX(0);
+				} else if (objects.get(i).getX() > x && sectionX >= map.map.length-1) {
+					objects.get(i).setX(x);
+				}
+				
+				if(objects.get(i).getY() < 0 && sectionY > 0) {
+					System.out.println(sectionY);
+					newy--;
+					objects.get(i).setY(y+objects.get(i).getY());
+				} else if(objects.get(i).getBottomY() > y && sectionY < map.map[0].length-1) {
+					newy++;
+					objects.get(i).setY(objects.get(i).getY()-y);
+				} else if (objects.get(i).getY() < 0 && sectionY <= 0) {
+					objects.get(i).setY(0);
+				} else if (objects.get(i).getY() > y && sectionY >= map.map[0].length-1) {
+					objects.get(i).setY(y);
+				}
+				
+				map.getSection(newx, newy).addObject(objects.remove(i));;
 			}
-			if(objects.get(i).getY() < 0 && sectionY > 0) {
-				newy--;
-				objects.get(i).setY(y);
-			}
-			if(objects.get(i).getRightX() > x && sectionX < map.map.length-1) {
-				newx++;
-				objects.get(i).setX(0);
-			}
-			if(objects.get(i).getBottomY() > y && sectionY < map.map[0].length-1) {
-				newy++;
-				objects.get(i).setY(0);
-			}
-			map.getSection(newx, newy).addObject(objects.remove(i));;
-		}
 		}
 	}
 	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
@@ -111,11 +119,9 @@ public class Map_Section {
 //	}
 	
 	public void updateSection() {
-
 		moveSection();
 		checkCollisions();
 		for(int i = 0; i < objects.size(); i++) {
-
 			objects.get(i).update();
 		}
 	}

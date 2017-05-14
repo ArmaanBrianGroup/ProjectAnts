@@ -86,12 +86,11 @@ public class Ant extends Sim_Object {
 		
 		//System.out.println(vision[0] + " " + vision[1] + " " +  vision[2]);
 		
-		int xD = (int) ((out[0] - 0.5)*10);
-		int yD = (int) ((out[1] - 0.5)*10);
+		int xD = (int) ((out[0] - 0.5)*speed);
+		int yD = (int) ((out[1] - 0.5)*speed);
 				
-		x += -5; //xD
-		y += -5; //yD;
-
+		x += xD;
+		y += yD;
 	}
 	
 	public void update() {

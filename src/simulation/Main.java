@@ -2,19 +2,24 @@ package simulation;
 
 
 
+import java.util.Random;
+
 import GUI.Manager;
 
 public class Main {
 	private static Manager m = new Manager(1000, 1000, 4, 4);
 	//private static Ant a = new Ant(150, 150, 100, 0);
 
+	private static Random r = new Random();
 
 	public static void main(String[] args) {		
 		for (int i = 0; i < m.getMap().map.length; i++) {
 			for (int x = 0; x < m.getMap().map[0].length; x++) {
 				
 				m.getMap().getSection(i, x).addFoodClump((int) (Math.random()*500), (int) (Math.random()*500), 25, 50, 100);
-				m.getMap().getSection(i, x).addAnt(100,100);
+				for (int a = 0; a < 30; a++) {
+					m.getMap().getSection(i, x).addAnt(r.nextInt(1000), r.nextInt(1000));
+				}
 			}
 		}
 		
