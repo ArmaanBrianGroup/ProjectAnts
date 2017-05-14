@@ -52,6 +52,8 @@ public class Map_Section {
 		for(int i = 0; i < objects.size(); i++) {
 			int newx = this.sectionX, newy = this.sectionY;
 
+			if (objects.get(i).getType() == 1) {
+
 			if(objects.get(i).getX() < 0 && sectionX > 0) {
 				newx--;
 				objects.get(i).setX(x);
@@ -60,15 +62,16 @@ public class Map_Section {
 				newy--;
 				objects.get(i).setY(y);
 			}
-			if(objects.get(i).getX() > x && sectionX < map.map.length) {
+			if(objects.get(i).getRightX() > x && sectionX < map.map.length-1) {
 				newx++;
 				objects.get(i).setX(0);
 			}
-			if(objects.get(i).getY() < 0 && sectionY < map.map[0].length) {
+			if(objects.get(i).getBottomY() > y && sectionY < map.map[0].length-1) {
 				newy++;
 				objects.get(i).setY(0);
 			}
 			map.getSection(newx, newy).addObject(objects.remove(i));;
+		}
 		}
 	}
 	public void addFoodClump(int x, int y, int num, int max_obj_radius, int radius) {
